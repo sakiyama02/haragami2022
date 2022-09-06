@@ -82,7 +82,7 @@ void main_task(intptr_t unused)
     int8 retChk = SYS_NG;
     sta_cyc(SONIC_PERIOD);
     sta_cyc(COLOR_PERIOD);
-    sta_cyc(CARDATA_PERIOD);
+    //sta_cyc(CARDATA_PERIOD);
 
     mlog.log_open();
     while(1){
@@ -102,7 +102,7 @@ void main_task(intptr_t unused)
     
    	stp_cyc(SONIC_PERIOD);
     stp_cyc(COLOR_PERIOD);
-    stp_cyc(CARDATA_PERIOD);
+    //stp_cyc(CARDATA_PERIOD);
 #ifndef SPIKE
 	ETRoboc_notifyCompletedToSimulator();
 #endif

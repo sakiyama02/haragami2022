@@ -48,7 +48,7 @@ int8_t LineTrace::run(int32_t speed)
 	float 		pid_revision 	= 0.0f;
 	float		distance		= 0.0f; 
 	float		motor_revision  = 0.0f;
-	color_space.update();
+	
 	// 色空間からhsv値を取得してから、閾値と取得した値との差分をpid制御へ渡し、操作量を取得する
 	hsv_data 		= color_space.getHSV();
 	deviation		= target_val - hsv_data.v;

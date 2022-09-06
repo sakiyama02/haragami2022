@@ -20,7 +20,7 @@ class Straight : public Action{
 
 	public:
 	Straight();
-	Straight(COORDINATE target_coordinate);
+	Straight(COORDINATE _coordinate);
 	~Straight();
 
 	int8_t run(int32_t speed);

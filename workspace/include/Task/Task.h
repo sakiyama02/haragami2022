@@ -11,6 +11,6 @@ public:
 	Task(MoveData movedata,CorrectionData correctiondata);
 	~Task();
 
-	int8 init();
+	//int8 init();
 	int8 run();
 };
