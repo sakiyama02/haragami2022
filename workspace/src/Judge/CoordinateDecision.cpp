@@ -16,10 +16,10 @@ CoordinateDecision::CoordinateDecision() {
 	return;
 }
 
-CoordinateDecision::CoordinateDecision( COORDINATE coordinate, uint8_t range[ USAGE_LIMIT ] ) {
+CoordinateDecision::CoordinateDecision( COORDINATE coordinate, uint8_t range[ USAGE_LIMIT ] ,uint8 _check) {
 
 	m_coordinate = coordinate;
-	
+	check = _check;
 	memcpy( m_range, range, sizeof( m_range ) );
 
 	return;
@@ -63,47 +63,28 @@ int8_t CoordinateDecision::decide(void) {
 	CarData &cardata = CarData::getInstance();
 
 	COORDINATE current_coordinate = { 0,0 };//現在座標
-	int8_t success = 0;//判定成功回数
-	int8_t usage = USAGE_LIMIT;//判定実行回数
 
 	//自己位置座標取得
 	current_coordinate = cardata.getPos();
-
+	if(check == X_JUDGE){
 	//x座標判定
-	if ( ( m_range[ 0 ] == ABOVE ) && ( m_coordinate.x <= current_coordinate.x ) ) {
+		if ( ( m_range[ 0 ] == ABOVE ) && ( m_coordinate.x <= current_coordinate.x ) ) {
 
-		success++;
+			return RESULT_TRUE;
+		}
+		else if ( ( m_range[ 0 ] == BELOW ) && ( m_coordinate.x >= current_coordinate.x ) ) {
+
+			return RESULT_TRUE;
+		}
+	}else if(check == Y_JUDGE){
+		if ( ( m_range[ 1 ] == ABOVE ) && ( m_coordinate.y <= current_coordinate.y ) ) {
+
+			return RESULT_TRUE;
+		}
+		else if ( ( m_range[ 1 ] == BELOW ) && ( m_coordinate.y >= current_coordinate.y ) ) {
+
+			return RESULT_TRUE;
+		}
 	}
-	else if ( ( m_range[ 0 ] == BELOW ) && ( m_coordinate.x >= current_coordinate.x ) ) {
-
-		success++;
-	}
-	else if ( m_range[ 0 ] == 0 ) {
-
-		usage--;
-	}
-
-	//y座標判定
-	if ( ( m_range[ 1 ] == ABOVE ) && ( m_coordinate.y <= current_coordinate.y ) ) {
-
-		success++;
-	}
-	else if ( ( m_range[ 1 ] == BELOW ) && ( m_coordinate.y >= current_coordinate.y ) ) {
-
-		success++;
-	}
-	else if ( m_range[ 1 ] == 0 ) {
-
-		usage--;
-	}
-
-	//比較
-	if ( success == usage ) {
-
-		return RESULT_TRUE;
-	}
-	else {
-
-		return RESULT_FALSE;
-	}
+	return RESULT_FALSE;
 }

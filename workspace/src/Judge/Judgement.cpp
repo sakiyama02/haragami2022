@@ -12,11 +12,12 @@ int8_t Judgement::judge( DecisionData decisiondata ) {
 
 	AngleDecision angledecision( decisiondata.angle, decisiondata.angle_range );
 
-	CoordinateDecision coordinatedecision( decisiondata.coordinate, decisiondata.coordinate_range );
+	CoordinateDecision coordinatedecision_x( decisiondata.coordinate, decisiondata.coordinate_range ,X_JUDGE);
+	CoordinateDecision coordinatedecision_y( decisiondata.coordinate, decisiondata.coordinate_range ,Y_JUDGE);
 	HSVDecision hsvdecision( decisiondata.hsv, decisiondata.hsv_range );
 	RGBDecision rgbdecision( decisiondata.rgb, decisiondata.rgb_range );
 	UltraSonicDecision ultrasonicdecision( decisiondata.distance, decisiondata.distance_range );
-	UseJudgement *usejudgement[] = { &coordinatedecision ,&coordinatedecision ,&angledecision ,
+	UseJudgement *usejudgement[] = { &coordinatedecision_x ,&coordinatedecision_y ,&angledecision ,
 									 &rgbdecision ,&hsvdecision ,&ultrasonicdecision };
 	int8_t judge_cnt = 0;
 	int8_t result_check[ 2 ];
@@ -49,9 +50,9 @@ int8_t Judgement::judge( DecisionData decisiondata ) {
 
 
 		if ( decisiondata.logic == LOGICAL_CONJUNCTION ) {//AND(両方
-
+			
 			if ( ( result_check[ 0 ] == RESULT_TRUE ) && ( result_check[ 1 ] == RESULT_TRUE ) ) {
-
+			
 				return RESULT_TRUE;
 			}
 			else {
@@ -59,7 +60,7 @@ int8_t Judgement::judge( DecisionData decisiondata ) {
 			}
 		}
 		else if ( decisiondata.logic == LOGICAL_DISJUNCTION ) {//OR（片方
-
+			
 			if ( ( result_check[ 0 ] == RESULT_TRUE ) || ( result_check[ 1 ] == RESULT_TRUE ) ) {
 
 				return RESULT_TRUE;
