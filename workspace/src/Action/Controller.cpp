@@ -8,7 +8,7 @@ Controller::Controller(){
 Controller::~Controller(){}
 
 
-int8 Controller::run(float _deviation){
+int8 Controller::run(double _deviation){
     deviation=_deviation;
     calc();
     motor_revision=round(motor_revision);

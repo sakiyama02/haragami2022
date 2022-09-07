@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define PI				(3.141592653589793f)	/* 円周率					 */
+
 
 #define RPS				(   2.75)				/* モーターの回転速度 [r/s]	 */
 #define WHEEL_WIDTH		(	CAR_WHEEL_WIDTH)	/* 車輪の直径(mm)			 */
@@ -27,9 +27,9 @@ using namespace std;
 #define V_MAX_WHEEL		(RPS * WHEEL_WIDTH * PI)/* 最大回転速度				 */
 #define JERK_MAX		( 15000.0)				/* 最大躍度					 */
 #define ACCEL_MAX		( V_MAX_WHEEL)			/* 最大加速度				 */
-#define VELOCITY_MAX	(  100.0f)				/* 最大速度					 */
-#define VELOCITY_MIN	(    0.0f)				/* 最低速度					 */
-#define EXECTION_COUNT	(   0.01f)				/* 経過時間					 */
+#define VELOCITY_MAX	(  100.0)				/* 最大速度					 */
+#define VELOCITY_MIN	(    0.0)				/* 最低速度					 */
+#define EXECTION_COUNT	(   0.01)				/* 経過時間					 */
 
 class TrapezoidControl {
 public:
@@ -39,8 +39,8 @@ public:
 	TrapezoidControl( const TrapezoidControl &x );
 	TrapezoidControl&operator=( const TrapezoidControl & ) { return *this; };
 
-	float run(float input);
-	int8_t setVelocity(float velocity);
+	double run(double input);
+	int8_t setVelocity(double velocity);
 
 	static TrapezoidControl &getInstance()
 	{
@@ -63,7 +63,7 @@ private:
 
 	int8_t calc(void);
 
-	float conversion();
+	double conversion();
 };
 
 #endif

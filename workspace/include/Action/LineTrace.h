@@ -20,13 +20,13 @@
 class LineTrace : public Action{
 	private:
 	GAIN 		gain;				// ゲイン値
-	float 		target_val;			// 閾値
+	double 		target_val;			// 閾値
 	int8_t 		edge;				// ライン際
 	COORDINATE 	target_coordinate;	// 目標座標
 
 	public:
 	LineTrace();
-	LineTrace(GAIN gain,float target_val,int8_t edge,COORDINATE target_coordinate);
+	LineTrace(GAIN gain,double target_val,int8_t edge,COORDINATE target_coordinate);
 	~LineTrace();
 
 	int8_t run(int32_t speed);

@@ -9,7 +9,7 @@ int8_t Turn::run(int32_t speed)
 {
 
 	int8 retChk = SYS_NG;
-	float nowAngle = 0.0f;
+	double nowAngle = 0.0f;
 	MOTOR_POWER motor_power;
 	CarData&		 carPosiiton = CarData::getInstance();
 	Steering         &steering = Steering::getInstance();

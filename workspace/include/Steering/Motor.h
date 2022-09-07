@@ -10,7 +10,7 @@ public:
 	Motor( );
 	~Motor( );
 	int8_t setPWM( int8_t );
-	float getCounts();
+	double getCounts();
 	
 private:
 	

@@ -3,20 +3,17 @@
 #include"../Steering/Steering.h"
 
 
-#define PI (3.141592653589793f)
-#define DIST (((PI) * CAR_WHEEL_WIDTH) / 360.0f)
-
 typedef struct WheelDist_s
 {
-	float left;
-	float right;
+	double left;
+	double right;
 } WheelDist;
 
 class CarData
 {
 private:
 	COORDINATE position;
-	float car_angle;
+	double car_angle;
 
 	CarData( );
 	~CarData( );
@@ -37,11 +34,11 @@ public:
 
 	int8 setPos( COORDINATE coordinate );
 
-	int8 setPosX( float pos_x );
+	int8 setPosX( double pos_x );
 
-	int8 setPosY( float pos_y );
+	int8 setPosY( double pos_y );
 
-	float getAngle( void );
+	double getAngle( void );
 
-	int8 setAngle( float angle );
+	int8 setAngle( double angle );
 };

@@ -14,7 +14,7 @@ AngleDecision::AngleDecision() {
 	return;
 }
 
-AngleDecision::AngleDecision( float target_angle, int8_t range ) {
+AngleDecision::AngleDecision( double target_angle, int8_t range ) {
 
 	m_target_angle = target_angle;
 	m_range = range;
@@ -33,7 +33,7 @@ int8_t AngleDecision::decide(void) {
 	//自己位置推定のインスタンスを取得
 	CarData &cardata = CarData::getInstance();
 
-	float current_angle = 0;
+	double current_angle = 0;
 
 	//現在角度取得
 	current_angle = cardata.getAngle();

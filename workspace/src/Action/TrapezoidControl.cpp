@@ -29,11 +29,11 @@ TrapezoidControl::~TrapezoidControl() {
 	* @param deviation		偏差
 	* @return 	motor_revision	モーターパワー
 */
-float TrapezoidControl::run(float deviation)
+double TrapezoidControl::run(double deviation)
 {
 	int8_t ret = 0.0f;								/* 戻り値チェック変数		 */
 
-	//return (float)target;
+	//return (double)target;
 
 	//printf("%f,%f,%f,",deviation,run_time,ad.t_end());
 
@@ -69,11 +69,11 @@ float TrapezoidControl::run(float deviation)
 
 /**
 	* @brief 目標速度を設定する
-	* @param velocity:float　目標速度
+	* @param velocity:double　目標速度
 	* @return SYS_OK	正常終了
 	*		  SYS_NG	引数エラー
 */
-int8_t TrapezoidControl::setVelocity(float velocity)
+int8_t TrapezoidControl::setVelocity(double velocity)
 {
 	/* 引数チェック */
 	if (velocity < VELOCITY_MIN || velocity > VELOCITY_MAX) {
@@ -111,13 +111,13 @@ int8_t TrapezoidControl::calc(void)
 
 /**
 	* @brief 目標速度を設定する
-	* @param velocity:float　目標速度
+	* @param velocity:double　目標速度
 	* @return 	正常終了
 */
-float TrapezoidControl::conversion() {
-	float ret_conv = 0.0f;						/* 変換後戻り値				 */
+double TrapezoidControl::conversion() {
+	double ret_conv = 0.0f;						/* 変換後戻り値				 */
 
-	ret_conv = (float)(((double)motor_revision * VELOCITY_MAX) / V_MAX_WHEEL);
+	ret_conv = (double)(((double)motor_revision * VELOCITY_MAX) / V_MAX_WHEEL);
 	
 	return ret_conv;
 }

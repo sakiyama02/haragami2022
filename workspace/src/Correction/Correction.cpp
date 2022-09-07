@@ -28,11 +28,11 @@ int8_t Correction::run( CorrectionData correctiondata ) {
 
 	int8_t result_check = 0;//判定結果
 	COORDINATE coordinate = correctiondata.coordinate;//補正座標
-	float angle = correctiondata.angle;//補正角度
+	double angle = correctiondata.angle;//補正角度
 	uint8_t pattern[ 3 ];//使用軸
-	float degree = 0;//機体角度(degree)
-	float radian = 0;//機体角度(radian)
-	float senser_pos = 0;//機体の中心座標からセンサまでの距離
+	double degree = 0;//機体角度(degree)
+	double radian = 0;//機体角度(radian)
+	double senser_pos = 0;//機体の中心座標からセンサまでの距離
 	
 	memset( pattern, 0, sizeof( pattern ) );
 	memcpy( pattern, correctiondata.correction, sizeof( pattern ) );

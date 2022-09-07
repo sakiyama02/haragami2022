@@ -6,13 +6,13 @@
 class Controller
 {
 protected:
-    float motor_revision;
-    float deviation;
+    double motor_revision;
+    double deviation;
     virtual int8 calc();
 public:
     Controller();
 
     ~Controller();
 
-    int8 run(float);
+    int8 run(double);
 };

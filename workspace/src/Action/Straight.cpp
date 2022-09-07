@@ -30,8 +30,8 @@ int8_t Straight::run(int32_t speed)
 
 	COORDINATE 	current_coordinate;
 	MOTOR_POWER motor_power;
-	float		distance		= 0.0f; 
-	float		motor_revision  = 0.0f;
+	double		distance		= 0.0f; 
+	double		motor_revision  = 0.0f;
 
 	current_coordinate = car_data.getPos();
 	
@@ -39,7 +39,7 @@ int8_t Straight::run(int32_t speed)
 	//speedを絶対値に変換する
 	trapezoid.setVelocity(std::abs(speed));
 
-	distance = (float)std::sqrt(std::pow(current_coordinate.x - target_coordinate.x,2)+
+	distance = (double)std::sqrt(std::pow(current_coordinate.x - target_coordinate.x,2)+
 						 		std::pow(current_coordinate.y - target_coordinate.y,2));
 	
 	motor_revision = trapezoid.run(distance);

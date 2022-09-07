@@ -15,9 +15,9 @@ int8 PIDControl::init(GAIN _gain){
 }
 
 int8 PIDControl::calc(){
-    float   kP = 0;                             //比例ゲイン
-    float   kI = 0;                             //積分ゲイン
-    float   kD = 0;                             //微分ゲイン
+    double   kP = 0;                             //比例ゲイン
+    double   kI = 0;                             //積分ゲイン
+    double   kD = 0;                             //微分ゲイン
      //偏差の積み上げ
     stack_integral += ((prevdeviation + deviation)) / 2.0f * DELTA_TIME;
     //比例ゲイン(kP)

@@ -8,7 +8,7 @@
 Curve::Curve(){};
 
 /// コンストラクタ引数あり
-Curve::Curve(float _radius, int8_t _direction,COORDINATE _coordinate){
+Curve::Curve(double _radius, int8_t _direction,COORDINATE _coordinate){
     target_coordinate   = _coordinate;
 	direction           = _direction;
 	radius 				= _radius; 
@@ -24,15 +24,15 @@ int8_t Curve::run(int32_t speed){
     CarData&            car_data    = CarData::getInstance();
     TrapezoidControl&   trapezoid   = TrapezoidControl::getInstance();
 	Steering&			steering	= Steering::getInstance();
-	float           ratio_left;             // 左比率
-    float           ratio_right;            // 右比率
-    float           angle;                  // 角度
-    float           circle;                 // 円周
+	double           ratio_left;             // 左比率
+    double           ratio_right;            // 右比率
+    double           angle;                  // 角度
+    double           circle;                 // 円周
 	int32			motor_revision;
 	COORDINATE      current_coordinate;     // 自己位置
     MOTOR_POWER     motor_power;            // モーターパワー
-	float           target_distance;        // 目標直線距離
-    float           theta;                  // シータ
+	double           target_distance;        // 目標直線距離
+    double           theta;                  // シータ
 
 
     // 変数初期化

@@ -8,9 +8,9 @@ class PIDControl : public Controller
 {
 private:
     GAIN gain;
-    float target;
-    float stack_integral;
-    float prevdeviation;
+    double target;
+    double stack_integral;
+    double prevdeviation;
     int8 calc();
 public:
     PIDControl();

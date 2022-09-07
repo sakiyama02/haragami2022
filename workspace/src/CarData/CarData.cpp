@@ -50,8 +50,8 @@ int8 CarData::update( void )
 
 	nowAngle = steering.getMotorAngle( );
 
-	wheelDist.left = (float)(nowAngle.left - preAngle.left);
-	wheelDist.right = (float)(nowAngle.right - preAngle.right);
+	wheelDist.left = (double)(nowAngle.left - preAngle.left);
+	wheelDist.right = (double)(nowAngle.right - preAngle.right);
 
 	wheelDist.left *= DIST;
 	wheelDist.right *= DIST;
@@ -82,7 +82,7 @@ int8 CarData::calcOdometry( WheelDist* wheel_dist )
 	if ( wheel_dist == NULL ) {
 		return SYS_PARAM;
 	}
-	float  angle = 0.0f;
+	double  angle = 0.0f;
 	double dist = 0.0f;
 	double rad = 0.0f;
 	double addRad = 0.0f;
@@ -91,13 +91,13 @@ int8 CarData::calcOdometry( WheelDist* wheel_dist )
 	memset( &addPos, 0, sizeof( COORDINATE ) );
 
 	dist = (double)(wheel_dist->right + wheel_dist->left) / 2.0f;
-	angle = (float)(360.0f / (2.0f * PI * CAR_WIDTH)) * (wheel_dist->left - wheel_dist->right);
+	angle = (double)(360.0f / (2.0f * PI * CAR_WIDTH)) * (wheel_dist->left - wheel_dist->right);
 
 	addRad = ((double)(angle)) * (PI / 180.0f);
 	rad = ((double)(car_angle)) * (PI / 180.0f);
 
-	addPos.x = (float)-(dist * std::sin( rad + addRad / 2.0f ));
-	addPos.y = (float)(dist * std::cos( rad + addRad / 2.0f ));
+	addPos.x = (double)-(dist * std::sin( rad + addRad / 2.0f ));
+	addPos.y = (double)(dist * std::cos( rad + addRad / 2.0f ));
 
 	position.x += addPos.x;
 	position.y += addPos.y;
@@ -140,12 +140,12 @@ int8 CarData::setPos( COORDINATE coordinate )
 /* 関数名		： setPosX							    	    			 */
 /* 機能名		： 自己位置座標(x)を上書き 									  */
 /* 機能概要		： 自己位置座標(x)を上書きする                   			  */
-/* 引数			： float			:pos_x		    :X座標					 */
+/* 引数			： double			:pos_x		    :X座標					 */
 /* 戻り値		： int8				:0				:正常終了				 */
 /* 作成日		： 2021/07/23		 崎山　勇人		 新規作成				  */
 /* 作成日		： 2022/07/16		 山田　龍之介	:新規作成				  */
 /* -------------------------------------------------------------------------*/
-int8 CarData::setPosX( float pos_x )
+int8 CarData::setPosX( double pos_x )
 {
 	position.x = pos_x;
 	return SYS_OK;
@@ -155,12 +155,12 @@ int8 CarData::setPosX( float pos_x )
 /* 関数名		： setPosY							    	    			 */
 /* 機能名		： 自己位置座標(y)を上書き 									  */
 /* 機能概要		： 自己位置座標(y)を上書きする                   			  */
-/* 引数			： float			:pos_y		    :X座標					 */
+/* 引数			： double			:pos_y		    :X座標					 */
 /* 戻り値		： int8				:0				:正常終了				 */
 /* 作成日		： 2021/07/23		 崎山　勇人		 新規作成				  */
 /* 作成日		： 2022/07/16		 山田　龍之介	:新規作成				  */
 /* -------------------------------------------------------------------------*/
-int8 CarData::setPosY( float pos_y )
+int8 CarData::setPosY( double pos_y )
 {
 	position.y = pos_y;
 	return SYS_OK;
@@ -171,11 +171,11 @@ int8 CarData::setPosY( float pos_y )
 /* 機能名		： 自己位置角度を取得		            	    			  */
 /* 機能概要		： 自己位置角度を返す	                                     */
 /* 引数			： none														*/
-/* 戻り値		： float			:car_angle		:自己位置角度			 */
+/* 戻り値		： double			:car_angle		:自己位置角度			 */
 /* 作成日		： 2021/07/23		 崎山　勇人		 新規作成				  */
 /* 作成日		： 2022/07/16		 山田　龍之介	:新規作成				  */
 /* -------------------------------------------------------------------------*/
-float CarData::getAngle( void )
+double CarData::getAngle( void )
 {
 	return car_angle;
 }
@@ -184,12 +184,12 @@ float CarData::getAngle( void )
 /* 関数名		： setAngle							    	    			*/
 /* 機能名		： 自己位置角度を上書き		            	    			  */
 /* 機能概要		： 自己位置角度を上書きする                                   */
-/* 引数			： float            :angle          :角度					*/
+/* 引数			： double            :angle          :角度					*/
 /* 戻り値		： int8				:0				:正常終了				 */
 /* 作成日		： 2021/07/23		 崎山　勇人		 新規作成				  */
 /* 作成日		： 2022/07/16		 山田　龍之介	:新規作成				  */
 /* -------------------------------------------------------------------------*/
-int8 CarData::setAngle( float angle )
+int8 CarData::setAngle( double angle )
 {
 	car_angle = angle;
 	return SYS_OK;

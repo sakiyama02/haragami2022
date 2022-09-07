@@ -85,7 +85,7 @@ public:
 	
 	/**
 	 * @brief 境界のタイムスタンプを取得
-	 * @return std::array<float, 8> 境界のタイムスタンプの配列
+	 * @return std::array<double, 8> 境界のタイムスタンプの配列
 	 */
 	const std::array<double, 8> getTimeStamp() const {
 		return { {

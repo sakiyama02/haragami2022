@@ -63,7 +63,7 @@ void AccelCurve::reset(const double j_max, const double a_max, const double v_st
 	}
 	else {
 		/* 速度: 曲線 -> 曲線 */
-		const auto tcp = std::sqrt((v3 - v0) / jm); //< 変曲までの時間
+		const double tcp = std::sqrt((v3 - v0) / jm); //< 変曲までの時間
 		t1 = t2 = t0 + tcp;
 		t3 = t2 + tcp;
 		v1 = v2 = (v0 + v3) / 2; //< 対称性より中点となる

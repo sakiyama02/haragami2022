@@ -31,13 +31,17 @@
 #define YPOS_MIN 0
 #define RESULT_TRUE 1
 #define RESULT_FALSE 2
-#define CAR_WIDTH (134.22f)
+#define CAR_WIDTH (134.22)
+
+#define PI				(3.141592653589793)	/* 円周率					 */
 
 #if defined(EV3) || defined(SPIKE)
-	#define CAR_WHEEL_WIDTH (100.0f)
+	#define CAR_WHEEL_WIDTH (100.0)
 #else
-	#define CAR_WHEEL_WIDTH (90.33f)
+	#define CAR_WHEEL_WIDTH (90.33)
 #endif
+
+#define DIST ((PI) * (double)CAR_WHEEL_WIDTH) / 360.0
 // integer 8bit
 using int8 = int8_t;
 
@@ -92,14 +96,14 @@ enum SensorPort
 /* 構造体定義 */
 // RGBの構造体
 typedef struct GAIN_TAG {
-	float p;
-	float i;
-	float d;
+	double p;
+	double i;
+	double d;
 }GAIN;
 
 typedef struct COORDINATE_TAG {
-	float x;
-	float y;
+	double x;
+	double y;
 }COORDINATE;
 
 
@@ -138,9 +142,9 @@ struct MoveData
 	unsigned char motion;				// 使用動作
 	unsigned char edge;				// ライントレース位置（右ライン or 左ライン）
 	GAIN gain;					// ゲイン
-	float target_val;			// 閾値
-	float speed;				// 目標速度
-	float radius;				// カーブ半径
+	double target_val;			// 閾値
+	double speed;				// 目標速度
+	double radius;				// カーブ半径
 	COORDINATE coordinate;		// 目標座標
 	unsigned char direction;			// 旋回方向
 	short arm_angle;			// アーム角度
@@ -159,7 +163,7 @@ struct DecisionData
 	unsigned char rgb_range[3];			// 使用RGB
 	HSV_DATA hsv;					// 目標HSV
 	unsigned char hsv_range[3];			// 使用HSV
-	float angle;					// 目標角度
+	double angle;					// 目標角度
 	unsigned char angle_range;			// 目標角度範囲
 	unsigned char logic;					// 論理演算方法
 };
@@ -167,7 +171,7 @@ struct DecisionData
 struct CorrectionData
 {
 	COORDINATE coordinate; 		// 補正座標
-	float angle;				// 補正角度
+	double angle;				// 補正角度
 	unsigned char correction[3];			// 使用軸
 	DecisionData decisionData;	// 判定情報クラス
 };
