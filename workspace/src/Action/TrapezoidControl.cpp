@@ -59,7 +59,6 @@ double TrapezoidControl::run(double deviation)
 		motor_revision = ad.v(run_time);
 	}else{
 		motor_revision = target;
-		my_printf("%lf,",motor_revision);
 		return motor_revision;
 	}
 	pre_deviation = deviation;
