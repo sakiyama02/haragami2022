@@ -69,7 +69,6 @@ int8_t Curve::run(int32_t speed){
     /// 加減速どうこう
 	trapezoid.setVelocity(speed);
 	motor_revision = trapezoid.run(circle);
-    my_printf("%lf,\n",motor_revision);
     
     /// 比率計算@
     // 左カーブの比率
