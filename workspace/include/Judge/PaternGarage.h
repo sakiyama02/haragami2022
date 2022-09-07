@@ -3,10 +3,11 @@
 #include "../system/system.h"
 enum GarageColor
 {
-  YELLOWTHRESHOL,
+  YELLOWTHRESHOLD,
   REDTHRESHOLD ,
   GREENTHRESHOLD,
   BLUETHRESHOLD ,
+  EMPTYTHRESHOLD ,
 };
 
 class PaternGarage : public UseJudgement {

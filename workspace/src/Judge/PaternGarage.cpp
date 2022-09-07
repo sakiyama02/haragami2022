@@ -11,7 +11,7 @@ int8_t PaternGarage::decide(){
     //printf("r:%d,g:%d,b:%d\n",rgb.r,rgb.g,rgb.b);
     //黄色
     if(rgb.r>100&&rgb.g>100&&rgb.b<30){
-        return YELLOWTHRESHOL;
+        return YELLOWTHRESHOLD;
     }
     //赤
     else if(rgb.r>90){
@@ -26,6 +26,6 @@ int8_t PaternGarage::decide(){
         return BLUETHRESHOLD;
     }
     else{
-        return 0;
+        return EMPTYTHRESHOLD;
     }
 }
