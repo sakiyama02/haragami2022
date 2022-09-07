@@ -9,6 +9,7 @@ class SceneControl{
     int8_t  now_scenario; //現在シナリオ
     int8_t slalom_patern;
     int8_t garage_card;
+    int8_t correction_flag;
     SceneData sceneData;
     public:
     //コンストラクタ

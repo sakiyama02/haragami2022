@@ -75,7 +75,7 @@ int8_t Correction::run( CorrectionData correctiondata ) {
 
 				if ( pattern[ XPOS ] == 1 ) {//X軸補正
 
-					coordinate.x = coordinate.x + ( senser_pos / 10 ) * sin( radian );
+					coordinate.x = coordinate.x + senser_pos * sin( radian );
 
 					//座標設定
 					result_check = cardata.setPosX( coordinate.x );
@@ -87,7 +87,7 @@ int8_t Correction::run( CorrectionData correctiondata ) {
 				}
 				if ( pattern[ YPOS ] == 1 ) {//Y軸補正
 
-					coordinate.y = coordinate.y - ( senser_pos / 10 ) * cos( radian );
+					coordinate.y = coordinate.y - senser_pos * cos( radian );
 
 					//座標設定
 					result_check = cardata.setPosY( coordinate.y );
@@ -96,6 +96,26 @@ int8_t Correction::run( CorrectionData correctiondata ) {
 
 						return SYS_NG;
 					}
+				}
+			}
+			else if ( pattern[ XPOS ] == 1 ) {//機体X座標補正
+
+				//機体X座標設定
+				result_check = cardata.setPosX( coordinate.x );
+
+				if ( result_check <= SYS_NG ) {
+
+					return SYS_NG;
+				}
+			}
+			else if ( pattern[ YPOS ] == 1 ) {//機体Y座標補正
+
+				//機体Y座標設定
+				result_check = cardata.setPosY( coordinate.y );
+
+				if ( result_check <= SYS_NG ) {
+
+					return SYS_NG;
 				}
 			}
 		}

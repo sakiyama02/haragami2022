@@ -4,7 +4,6 @@
 #include "../../include/Action/Curve.h"
 #include "../../include/Action/Straight.h"
 #include "../../include/Action/Turn.h"
-#include "../../include/Correction/Correction.h"
 Task::Task() {}
 Task::Task(MoveData movedata,CorrectionData correctiondata){
     moveData = movedata;
@@ -56,14 +55,7 @@ int8_t Task::run(){
     }*/
     //自己位置補正の値が設定されていれば行う
 	
-	for(int8 i = 0; i < sizeof(correctionData.correction); ++i){
-		if ( correctionData.correction[i] >= 1 ) {
-			//printf("coorection_start\n");
-			Correction correction;
-			correction.run(correctionData);
-			break;
-		}
-	} 
+	 
 
 
     return SYS_OK;

@@ -4,6 +4,7 @@
 #include "../../include/Task/Task.h"
 #include "../../include/SceneInfo/SceneInfo.hpp"
 #include "../../include/Judge/Judgement.h"
+#include "../../include/Correction/Correction.h"
 //コンストラクタ
 SceneControl::SceneControl(){
     error     = SYS_NG;
@@ -21,6 +22,7 @@ int8_t SceneControl::init(){
     now_scenario = 0;
     scene_num = 10;
     now_scene = 1;
+    correction_flag = 0;
     SceneInfo& sceneInfo    = SceneInfo::getInstance();
     //タイムアタックのシーン数取得
     scene_num = sceneInfo.get(TIMEATTACK,common);
@@ -118,16 +120,31 @@ int8_t SceneControl::SceneSwitch(){
     PaternJudge& paternjudge = PaternJudge::getInstance();
     //シーン切り替え判定
     //printf("scene_change_judge\n");
+    if(correction_flag==0){
+        for(int8 i = 0; i < sizeof(sceneData.correctionData.correction); ++i){
+		    if ( sceneData.correctionData.correction[i] >= 1 ) {
+		    	//printf("coorection_start\n");
+			    Correction correction;
+			    error = correction.run(sceneData.correctionData);
+                if(error == RESULT_TRUE){
+                    correction_flag = 1;
+                }
+			    break;
+		    }
+	    } 
+    }
     if(sceneData.paterndecisiondata.garage_point){
         paternjudge.Judge(1);
         if(paternjudge.getGarage()==garage_card){
             now_scene++;
+            correction_flag = 0;
         }
     }else{
         judge_bool=judgement.judge(sceneData.decisionData);
     }
     if(judge_bool == 1){
         now_scene++;
+        correction_flag = 0;
         printf("scene_change\n");
     }
     //パターン判定
