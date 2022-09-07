@@ -40,9 +40,9 @@ double TrapezoidControl::run(double deviation)
 	/* 走行距離が変化した時に真 */
 	if (pre_deviation < deviation) {
 		time_fst = 1.0f;
-		distance = (double)deviation;
+		distance = deviation;
 		start = pre_target;
-		run_time = 0.0f;
+		run_time = 0.0;
 
 		/* 台形制御計算 */
 		ret = calc();
@@ -54,16 +54,21 @@ double TrapezoidControl::run(double deviation)
 	//printf("%lf,%f,%f,",ad.x_end(),deviation,V_MAX_WHEEL);
 	//printf("\n%f\n",V_MAX_WHEEL);
 
-	/* 瞬間速度を代入 */
-	motor_revision = ad.v(run_time);
-
+	if(run_time <= ad.t_end()){
+		/* 瞬間速度を代入 */
+		motor_revision = ad.v(run_time);
+	}else{
+		motor_revision = target;
+		my_printf("%lf,",motor_revision);
+		return motor_revision;
+	}
 	pre_deviation = deviation;
 
 	/* 実行回数を加算 */
 	run_time += EXECTION_COUNT;
 
 	motor_revision = conversion();
-
+    
 	return motor_revision;
 }
 
@@ -83,7 +88,7 @@ int8_t TrapezoidControl::setVelocity(double velocity)
 	//pre_target = target;
 	pre_target = motor_revision;
 	target = velocity;
-
+   
 	return SYS_OK;
 }
 
@@ -95,7 +100,6 @@ int8_t TrapezoidControl::setVelocity(double velocity)
 */
 int8_t TrapezoidControl::calc(void)
 {
-
 	v_target = (target / VELOCITY_MAX) * V_MAX_WHEEL;
 	v_start = (start / VELOCITY_MAX) * V_MAX_WHEEL;
 
