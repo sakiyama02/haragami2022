@@ -1,12 +1,12 @@
 ///
-/// @file �Ȑ��݌v�N���X
-/// @note �S�������������Ȑ�����݌v����
-/// @date 2022/06/29 �J����C
+/// @file 曲線設計クラス
+/// @note 拘束条件もった曲線式を設計する
+/// @date 2022/06/29 谷口拓海
 ///
 #include "../../include/Action/AccelerationDesigner.h"
 
 /**
-	* @brief �R���X�g���N�^
+	* @brief コンストラクタ
 */
 AccelDesigner::AccelDesigner ()
 {
@@ -14,76 +14,76 @@ AccelDesigner::AccelDesigner ()
 }
 
 /**
-	* @brief �f�X�g���N�^
+	* @brief デストラクタ
 */
 AccelDesigner::~AccelDesigner()
 {
 }
 
 /**
-	* @brief �����S���Ȑ���������������
-	* @param j_max		�ő���x�̑傫�� [m/s/s/s], ���ł��邱��
-	* @param a_max		�ő�����x�̑傫�� [m/s/s], ���ł��邱��
-	* @param v_start	�n�_���x [m/s]
-	* @param v_target	�ڕW���x [m/s]
-	* @param dist		���s���� [m]
-	* @param x_start	�J�n���� [m]
-	* @param t_start	�J�n���� [m]
-	* @return �Ȃ�
+	* @brief 距離拘束曲線式を初期化する
+	* @param j_max		最大躍度の大きさ [m/s/s/s], 正であること
+	* @param a_max		最大加速度の大きさ [m/s/s], 正であること
+	* @param v_start	始点速度 [m/s]
+	* @param v_target	目標速度 [m/s]
+	* @param dist		走行距離 [m]
+	* @param x_start	開始距離 [m]
+	* @param t_start	開始時間 [m]
+	* @return なし
 */
 void AccelDesigner::reset(const double j_max, const double a_max, const double v_sat,
 	const double v_start, const double v_target, const double dist,
 	const double x_start, const double t_start)
 {
-	double v_max = 0.0f;							/* �ő呬�x					 */
-	double v_end = v_target;						/* �I�_���x					 */
-	double dist_min = 0.0f;						/* �ŒZ���s����				 */
-	double d_sum = 0.0f;							/* �K�v�Œ዗��				 */
+	double v_max = 0.0f;						/* 最大速度					 */
+	double v_end = v_target;					/* 終点速度					 */
+	double dist_min = 0.0f;						/* 最短走行距離				 */
+	double d_sum = 0.0f;						/* 必要最低距離				 */
 
-	/* �ő呬�x�̉��u�� */
+	/* 最大速度の仮置き */
 	v_max = dist > 0 ? std::max({ v_start, v_sat, v_target }) : std::min({ v_start, -v_sat, v_target });
 
-	/* ���s��������I�_���x$v_e$���Z�o */
+	/* 走行距離から終点速度$v_e$を算出 */
 	dist_min = AccelCurve::calcMinDistance(j_max, a_max, v_start, v_end);
 
 	if (std::abs(dist) < std::abs(dist_min)) {
-		/* �ڕW���x$v_t$�Ɍ������C���s����$d$�œ��B������I�_���x$v_e$���Z�o */
+		/* 目標速度$v_t$に向かい，走行距離$d$で到達し得る終点速度$v_e$を算出 */
 		v_end = AccelCurve::calcVelocityEnd(j_max, a_max, v_start, v_target, dist);
-		v_max = v_end; //< ���s�����̍S���𖞂������߁C�O�a���x�܂ŉ����ł��Ȃ�
+		v_max = v_end; //< 走行距離の拘束を満たすため，飽和速度まで加速できない
 	}
 
-	/* �Ȑ��𐶐� */
-	ac.reset(j_max, a_max, v_start, v_max); //< ����
-	dc.reset(j_max, a_max, v_max, v_end);   //< ����
+	/* 曲線を生成 */
+	ac.reset(j_max, a_max, v_start, v_max); //< 加速
+	dc.reset(j_max, a_max, v_max, v_end);   //< 減速
 
-	/* �O�a���x�܂ŉ�������Ƒ��s�����̍S���𖞂����Ȃ��ꍇ�̏��� */
+	/* 飽和速度まで加速すると走行距離の拘束を満たさない場合の処理 */
 	d_sum = ac.x_end() + dc.x_end();
 	if (std::abs(dist) < std::abs(d_sum)) {
 
-		/* ���s��������ő呬�x$v_m$���Z�o; ���Lv_max�͏�Lv_max�ȉ��ɂȂ� */
+		/* 走行距離から最大速度$v_m$を算出; 下記v_maxは上記v_max以下になる */
 		v_max = AccelCurve::calcVelocityMax(j_max, a_max, v_start, v_end, dist);
 
-		/* ���ʂȌ�������� */
+		/* 無駄な減速を回避 */
 		v_max = dist > 0 ? std::max({ v_start, v_max, v_end }) : std::min({ v_start, v_max, v_end });
 		
-		// ����
+		// 加速
 		ac.reset(j_max, a_max, v_start, v_max);
 
-		// ����
+		// 減速
 		dc.reset(j_max, a_max, v_max, v_end);
 	}
 
-	/* �e�萔�̎Z�o */
+	/* 各定数の算出 */
 	x0 = x_start;
 	x3 = x_start + dist;
 	t0 = t_start;
 
-	// �Ȑ������I���̎���
+	// 曲線加速終了の時刻
 	t1 = t0 + ac.t_end(); 
 
-	//< �������s�I���̎���
+	//< 等速走行終了の時刻
 	t2 = t0 + ac.t_end() + (dist - ac.x_end() - dc.x_end()) / v_max; 
 
-	//< �Ȑ������I���̎���
+	//< 曲線減速終了の時刻
 	t3 = t0 + ac.t_end() + (dist - ac.x_end() - dc.x_end()) / v_max + dc.t_end(); 
 }

@@ -1,15 +1,12 @@
 ///
-/// @file �����x�Ȑ��N���X
-/// @note �����x�Ȑ������쐬����
-/// @date 2022/06/29 �J����C
+/// @file 加速度曲線クラス
+/// @note 加速度曲線式を作成する
+/// @date 2022/06/29 谷口拓海
 ///
 #ifndef ACELLCURVE_HEADER
 #define ACELLCURVE_HEADER
 
-
-
 #include "../system/system.h"
-
 
 class AccelCurve
 {
@@ -28,9 +25,9 @@ public:
 	static double calcMinDistance(const double j_max, const double a_max,
 		const double v_start, const double v_end);
 
-	// �R���X�g�����o�ϐ�
+	// コンストメンバ変数
 	/**
-	* @brief ���x
+	* @brief 躍度
 	*/
 	double j(const double t)const {
 		if (t <= t0)
@@ -46,7 +43,7 @@ public:
 	}
 
 	/**
-	* @brief �����x
+	* @brief 加速度
 	*/
 	double a(const double t) const {
 		if (t <= t0)
@@ -62,7 +59,7 @@ public:
 	}
 
 	/**
-	* @brief ���x
+	* @brief 速度
 	*/
 	double v(const double t) const {
 		if (t <= t0)
@@ -78,7 +75,7 @@ public:
 	}
 
 	/**
-	* @brief �ʒu
+	* @brief 位置
 	*/
 	double x(const double t) const {
 		if (t <= t0)
@@ -94,19 +91,19 @@ public:
 	}
 
 	/**
-	* @brief �I�_���� [s]
+	* @brief 終点時刻 [s]
 	*/
 	double t_end() const { return t3; }
 	/**
-	 * @brief �I�_���x [m/s]
+	 * @brief 終点速度 [m/s]
 	 */
 	double v_end() const { return v3; }
 	/**
-	 * @brief �I�_�ʒu [m]
+	 * @brief 終点位置 [m]
 	 */
 	double x_end() const { return x3; }
 	/**
-	 * @brief ���E�̎���
+	 * @brief 境界の時刻
 	 */
 	double t_0() const { return t0; }
 	double t_1() const { return t1; }
@@ -117,11 +114,11 @@ private:
 
 
 protected:
-	double jm;									/* ���x�萔 [m/s/s/s]		 */
-	double am;									/* �����x�萔 [m/s/s]		 */
-	double t0, t1, t2, t3;						/* �����萔 [s]				 */
-	double v0, v1, v2, v3;						/* ���x�萔 [m/s]			 */
-	double x0, x1, x2, x3;						/* �ʒu�萔 [m]				 */
+	double jm;									/* 躍度定数 [m/s/s/s]		 */
+	double am;									/* 加速度定数 [m/s/s]		 */
+	double t0, t1, t2, t3;						/* 時刻定数 [s]				 */
+	double v0, v1, v2, v3;						/* 速度定数 [m/s]			 */
+	double x0, x1, x2, x3;						/* 位置定数 [m]				 */
 };
 
 #endif

@@ -1,10 +1,8 @@
 ///
-/// @file ��`����N���X
-/// @note ��`���ɂ�鑬�x����N���X
-/// @date 2022/06/29 �J����C
+/// @file 台形制御クラス
+/// @note 台形式による速度制御クラス
+/// @date 2022/06/29 谷口拓海
 ///
-
-
 
 #ifndef TARPEZOID_HEADER
 #define TARPEZOID_HEADER
@@ -17,31 +15,21 @@
 
 using namespace std;
 
-#define DEBUG_EV3
-//#define DEBUG_SPIKE
+#define PI				(3.141592653589793f)	/* 円周率					 */
 
-#define PI				(3.141592653589793f)	/* �~����					 */
-
-#ifdef DEBUG_EV3
-//#define RPS				(   2.31f)				/* ���[�^�[�̉�]���x [r/s]	 */
-#define RPS				(   2.75)
-#define WHEEL_WIDTH		(	CAR_WHEEL_WIDTH)				/* �ԗւ̒��a(mm)			 */
-#define V_MAX_WHEEL		(RPS * WHEEL_WIDTH * PI)	
-												/* �ő��]���x				 */
+#define RPS				(   2.75)				/* モーターの回転速度 [r/s]	 */
+#define WHEEL_WIDTH		(	CAR_WHEEL_WIDTH)	/* 車輪の直径(mm)			 */
+	
+#ifdef SPIKE
+#define RPS				(   2.25)				/* モーターの回転速度 [r/s]	 */
 #endif
 
-#ifdef DEBUG_SPIKE
-#define RPS				(   2.25)				/* ���[�^�[�̉�]���x [r/s]	 */
-#define WHEEL_WIDTH		(100.0)				/* �ԗւ̒��a(mm)			 */
-#define V_MAX_WHEEL		(RPS * WHEEL_WIDTH * PI)	
-												/* �ő��]���x				 */
-#endif
-
-#define JERK_MAX		( 15000.0)				/* �ő���x					 */
-#define ACCEL_MAX		( V_MAX_WHEEL)				/* �ő�����x				 */
-#define VELOCITY_MAX	(  100.0f)				/* �ő呬�x					 */
-#define VELOCITY_MIN	(    0.0f)				/* �Œᑬ�x					 */
-#define EXECTION_COUNT	(   0.01f)				/* �o�ߎ���					 */
+#define V_MAX_WHEEL		(RPS * WHEEL_WIDTH * PI)/* 最大回転速度				 */
+#define JERK_MAX		( 15000.0)				/* 最大躍度					 */
+#define ACCEL_MAX		( V_MAX_WHEEL)			/* 最大加速度				 */
+#define VELOCITY_MAX	(  100.0f)				/* 最大速度					 */
+#define VELOCITY_MIN	(    0.0f)				/* 最低速度					 */
+#define EXECTION_COUNT	(   0.01f)				/* 経過時間					 */
 
 class TrapezoidControl {
 public:
@@ -56,7 +44,7 @@ public:
 
 	static TrapezoidControl &getInstance()
 	{
-		static TrapezoidControl TrapezoidControl_;	// �C���X�^���X�̐���
+		static TrapezoidControl TrapezoidControl_;		// インスタンスの生成
 		return TrapezoidControl_;
 	}
 
