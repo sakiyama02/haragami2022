@@ -1,15 +1,13 @@
 ///
-/// @file �S�������x�Ȑ����N���X
-/// @note �S�����������������x�Ȑ������쐬����
-/// @date 2022/06/29 �J����C
+/// @file 拘束加速度曲線式クラス
+/// @note 拘束条件もった加速度曲線式を作成する
+/// @date 2022/06/29 谷口拓海
 ///
-
 
 #ifndef ACELLDESIGNER_HEADER
 #define ACELLDESIGNER_HEADER
 #include "./AccelerationCurve.h"
 #include "../system/system.h"
-
 
 class AccelDesigner {
 public:
@@ -22,9 +20,9 @@ public:
 		const double x_start, const double t_start);
 
 	/**
-   * @brief ���� $t$ �ɂ�������x $j$
-   * @param t ����[s]
-   * @return j ���x[m/s/s/s]
+   * @brief 時刻 $t$ における躍度 $j$
+   * @param t 時刻[s]
+   * @return j 躍度[m/s/s/s]
    */
 	double j(const double t) const {
 		if (t < t2)
@@ -33,9 +31,9 @@ public:
 			return dc.j(t - t2);
 	}
 	/**
-	 * @brief ���� $t$ �ɂ���������x $a$
-	 * @param t ���� [s]
-	 * @return a �����x [m/s/s]
+	 * @brief 時刻 $t$ における加速度 $a$
+	 * @param t 時刻 [s]
+	 * @return a 加速度 [m/s/s]
 	 */
 	double a(const double t) const {
 		if (t < t2)
@@ -44,9 +42,9 @@ public:
 			return dc.a(t - t2);
 	}
 	/**
-	 * @brief ���� $t$ �ɂ����鑬�x $v$
-	 * @param t ���� [s]
-	 * @return v ���x [m/s]
+	 * @brief 時刻 $t$ における速度 $v$
+	 * @param t 時刻 [s]
+	 * @return v 速度 [m/s]
 	 */
 	double v(const double t) const {
 		if (t < t2)
@@ -55,9 +53,9 @@ public:
 			return dc.v(t - t2);
 	}
 	/**
-	 * @brief ���� $t$ �ɂ�����ʒu $x$
-	 * @param t ���� [s]
-	 * @return x �ʒu [m]
+	 * @brief 時刻 $t$ における位置 $x$
+	 * @param t 時刻 [s]
+	 * @return x 位置 [m]
 	 */
 	double x(const double t) const {
 		if (t < t2)
@@ -66,19 +64,19 @@ public:
 			return x3 - dc.x_end() + dc.x(t - t2);
 	}
 	/**
-	 * @brief �I�_���� [s]
+	 * @brief 終点時刻 [s]
 	 */
 	double t_end() const { return t3; }
 	/**
-	 * @brief �I�_���x [m/s]
+	 * @brief 終点速度 [m/s]
 	 */
 	double v_end() const { return dc.v_end(); }
 	/**
-	 * @brief �I�_�ʒu [m]
+	 * @brief 終点位置 [m]
 	 */
 	double x_end() const { return x3; }
 	/**
-	 * @brief ���E�̎���
+	 * @brief 境界の時刻
 	 */
 	double t_0() const { return t0; }
 	double t_1() const { return t1; }
@@ -86,8 +84,8 @@ public:
 	double t_3() const { return t3; }
 	
 	/**
-	 * @brief ���E�̃^�C���X�^���v���擾
-	 * @return std::array<double, 8> ���E�̃^�C���X�^���v�̔z��
+	 * @brief 境界のタイムスタンプを取得
+	 * @return std::array<float, 8> 境界のタイムスタンプの配列
 	 */
 	const std::array<double, 8> getTimeStamp() const {
 		return { {
@@ -104,9 +102,9 @@ public:
 
 	
 protected:
-	double t0, t1, t2, t3;	/**< @brief ���E�_�̎��� [s] */
-	double x0, x3;			/**< @brief ���E�_�̈ʒu [m] */
-	AccelCurve ac, dc;		/**< @brief �Ȑ������C�Ȑ������I�u�W�F�N�g */
+	double t0, t1, t2, t3;	/**< @brief 境界点の時刻 [s] */
+	double x0, x3;			/**< @brief 境界点の位置 [m] */
+	AccelCurve ac, dc;		/**< @brief 曲線加速，曲線減速オブジェクト */
 };
 
 #endif
