@@ -28,7 +28,7 @@ int8_t Curve::run(int32_t speed){
     double           ratio_right;            // 右比率
     double           angle;                  // 角度
     double           circle;                 // 円周
-	int32			motor_revision;
+    double			motor_revision;
 	COORDINATE      current_coordinate;     // 自己位置
     MOTOR_POWER     motor_power;            // モーターパワー
 	double           target_distance;        // 目標直線距離
@@ -46,9 +46,9 @@ int8_t Curve::run(int32_t speed){
     // 自己位置、目標座標感の距離計算
     // 直線距離 = √ (x2-x)(x2-x) + (y2-y)(y2-y)
     target_distance = std::sqrt( std::pow(target_coordinate.x - current_coordinate.x, 2) + std::pow(target_coordinate.y - current_coordinate.y, 2) );
-    if (target_distance > (radius * 2.0f)) {
-		return SYS_NG;
-	}
+    //if (target_distance > (radius * 2.0f)) {
+	//	return SYS_NG;
+	//}
     // 半径 半径 目標座標までの距離　から角度計算
     //        b*b + c*c - a*a
     // cosA = ----------------
@@ -69,9 +69,10 @@ int8_t Curve::run(int32_t speed){
     /// 加減速どうこう
 	trapezoid.setVelocity(speed);
 	motor_revision = trapezoid.run(circle);
-    /// 比率計算
+    my_printf("%lf,\n",motor_revision);
+    
+    /// 比率計算@
     // 左カーブの比率
-	
     if( direction == LEFT_CURVE ) {
         ratio_left = (radius - (CAR_WIDTH / 2)) / (radius + (CAR_WIDTH / 2));
         ratio_right = 1;
@@ -84,6 +85,7 @@ int8_t Curve::run(int32_t speed){
     // カーブの比率計算
     motor_power.left = motor_revision * ratio_left;
     motor_power.right = motor_revision * ratio_right;
+
 	//printf("%d,%d\n",motor_power.left,motor_power.right);
 	steering.run(motor_power);
 
