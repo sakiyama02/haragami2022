@@ -101,7 +101,9 @@ void main_task(intptr_t unused)
     }
 
     mlog.log_close();
-    
+    MOTOR_POWER stop = {0,0};
+   	Steering &steering = Steering::getInstance( );
+    steering.run(stop);
    	stp_cyc(SONIC_PERIOD);
     stp_cyc(COLOR_PERIOD);
     stp_cyc(CARDATA_PERIOD);
