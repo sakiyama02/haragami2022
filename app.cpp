@@ -55,8 +55,9 @@ void start_task(intptr_t unused)
     {
         #ifdef SPIKE
         if (ev3_button_is_pressed(LEFT_BUTTON) == 1)
-		#endif
+		#else
 		if (ev3_touch_sensor_is_pressed(EV3_PORT_1) == 1)
+        #endif
         {
             break;
         }
