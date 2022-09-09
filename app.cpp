@@ -28,28 +28,19 @@
 #else
 #include "kernel_cfg.h"
 #endif
-bool flag = false;
+
 /**
  * EV3システム生成
  * モーター設定
  */
-static void user_system_create()
-{
 
-}
-static void user_system_destroy()
-{
-
-}
 /*  スタート処理タスク */
 void start_task(intptr_t unused)
 {
-    //char command[] = {"logon -section -trace \n"};
-    
-    uint16 index = 0;
+
     ev3_sensor_config(EV3_PORT_1, TOUCH_SENSOR);
     /* 動的に生成するインスタンスの初期化 */
-    user_system_create();
+
     //ファイル読み込み
 	tslp_tsk(10 * 1000U);
     SceneInfo& sceneInfo    = SceneInfo::getInstance();
@@ -59,7 +50,10 @@ void start_task(intptr_t unused)
     //フライング
     while (1)
     {
-        if (ev3_touch_sensor_is_pressed(EV3_PORT_1) == 1)
+        #ifdef SPIKE
+        if (ev3_button_is_pressed(LEFT_BUTTON) == 1)
+		#endif
+		if (ev3_touch_sensor_is_pressed(EV3_PORT_1) == 1)
         {
             break;
         }
@@ -80,7 +74,8 @@ void main_task(intptr_t unused)
     colorspace.update();
 	UltraSonic &ultrasonic = UltraSonic::getInstance();
     ultrasonic.update();
-	 car_data.update();
+	car_data.update();
+
     int8 retChk = SYS_NG;
     sta_cyc(SONIC_PERIOD);
     sta_cyc(COLOR_PERIOD);
