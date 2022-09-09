@@ -31,7 +31,6 @@
 #define YPOS_MIN 0
 #define RESULT_TRUE 1
 #define RESULT_FALSE 2
-#define CAR_WIDTH (134.22)
 
 #define PI				(3.141592653589793)	/* 円周率					 */
 
@@ -39,6 +38,12 @@
 	#define CAR_WHEEL_WIDTH (100.0)
 #else
 	#define CAR_WHEEL_WIDTH (90.33)
+#endif
+
+#ifdef SPIKE
+	#define CAR_WIDTH (127.0)
+#else
+	#define CAR_WIDTH (144.0)
 #endif
 
 #define DIST ((PI) * (double)CAR_WHEEL_WIDTH) / 360.0
