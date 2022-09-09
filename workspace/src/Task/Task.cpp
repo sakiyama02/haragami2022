@@ -4,6 +4,7 @@
 #include "../../include/Action/Curve.h"
 #include "../../include/Action/Straight.h"
 #include "../../include/Action/Turn.h"
+#include "../../include/Steering/ArmMotor.h"
 Task::Task() {}
 Task::Task(MoveData movedata,CorrectionData correctiondata){
     moveData = movedata;
@@ -38,9 +39,8 @@ int8_t Task::run(){
         printf("motion_error\n");
     }
     //アーム動作が設定されていれば行う
-    /*if(arm == 1){
-        printf("arm_move\n");
-    }*/
+    ArmMotor &armMotor = ArmMotor::getInstance();
+	armMotor.setCounts(moveData.arm_angle,10);
     //回避経路補正の値が設定されていれば行う
     /*if(avoidance == 1){
         int8_t patern = 0;

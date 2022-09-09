@@ -23,9 +23,9 @@ int8_t Motor::setPWM(int8_t motorPower)
 }
 
 
-double Motor::getCounts(void)
+int32 Motor::getCounts(void)
 {
-	double motorAngle = 0.0f;
+	int32 motorAngle = 0.0f;
 
 	motorAngle = ev3_motor_get_counts( static_cast<motor_port_t>(portNum) );
 

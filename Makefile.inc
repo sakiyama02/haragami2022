@@ -41,6 +41,7 @@ APPL_CXXOBJS += \
 				UltraSonicDecision.o\
 				UseJudgement.o\
 				Correction.o\
+				ArmMotor.o\
 #
 SRCLANG := c++
 

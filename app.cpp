@@ -45,7 +45,10 @@ void start_task(intptr_t unused)
 	tslp_tsk(10 * 1000U);
     SceneInfo& sceneInfo    = SceneInfo::getInstance();
 	sceneInfo.init();
-
+	ColorSpace &colorspace = ColorSpace::getInstance();
+    colorspace.update();
+	UltraSonic &ultrasonic = UltraSonic::getInstance();
+    ultrasonic.update();
   
     //フライング
     while (1)
