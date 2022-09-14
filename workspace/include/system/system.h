@@ -43,7 +43,7 @@
 #ifdef SPIKE
 	#define CAR_WIDTH (127.0)
 #else
-	#define CAR_WIDTH (144.0)
+	#define CAR_WIDTH (134.22)
 #endif
 
 #define DIST ((PI) * (double)CAR_WHEEL_WIDTH) / 360.0
