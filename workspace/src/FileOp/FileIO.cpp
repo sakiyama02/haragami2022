@@ -9,6 +9,7 @@
 *	ファイル読み込み
 *	destinationにファイルデータを格納する
 */
+
 char FileIO::read(vector<char>& destination,char* file_path){
 	FILE *fp;
 
@@ -68,19 +69,34 @@ int FileIO::log_open(void){
 		printf("file open err\n");
 		return -1;
 	}
+	
+	if( bt == NULL && flg == 0){
+		bt = ev3_serial_open_file(EV3_SERIAL_BT);
+		if(bt!=NULL){
+			printf("bt open err\n");
+		}
+		flg = 1;
+	}
 	#endif
-
 	return 1;
 
 }
 
 void FileIO::log_close(void){
 	fclose(fp_Log);
+	if(bt!=NULL){
+		fclose(bt);
+	}
 }
 
 int FileIO::log_set(char* str, int index){
 	if ( fwrite( str,index,1,fp_Log ) == 0 ){
 		printf("file write err\n");
+		return -1;
+	}
+	if(bt == NULL) return 1;
+	if ( fwrite( str,index,1,bt ) == 0 ){
+		printf("bt write err\n");
 		return -1;
 	}
 

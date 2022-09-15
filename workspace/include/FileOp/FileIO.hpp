@@ -14,7 +14,8 @@ void my_printf(const char* format, ... );
 class FileIO{
 	private:
 	FILE *fp_Log;
-
+	FILE *bt = NULL;     /* Bluetoothファイルハンドル */
+	char flg = 0;
 	public:
 	char read(vector<char>& destination,char* file_path);
 	int getSize(char* file_path);
