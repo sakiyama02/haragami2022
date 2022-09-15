@@ -45,6 +45,8 @@ void start_task(intptr_t unused)
 	tslp_tsk(10 * 1000U);
     SceneInfo& sceneInfo    = SceneInfo::getInstance();
 	sceneInfo.init();
+    FileIO &mlog = FileIO::getInstance();
+	mlog.log_open();
 	ColorSpace &colorspace = ColorSpace::getInstance();
     colorspace.update();
 	UltraSonic &ultrasonic = UltraSonic::getInstance();
@@ -85,7 +87,6 @@ void main_task(intptr_t unused)
     sta_cyc(COLOR_PERIOD);
     sta_cyc(CARDATA_PERIOD);
 
-    mlog.log_open();
     while(1){
        
         retChk = scenecontrol.run();

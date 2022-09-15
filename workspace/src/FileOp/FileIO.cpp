@@ -96,7 +96,7 @@ int FileIO::log_set(char* str, int index){
 	}
 	if(bt == NULL) return 1;
 	if ( fwrite( str,index,1,bt ) == 0 ){
-		printf("bt write err\n");
+		//printf("bt write err\n");
 		return -1;
 	}
 
