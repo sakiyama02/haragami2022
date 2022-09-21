@@ -26,6 +26,7 @@ int8_t PaternGarage::decide(){
         return BLUETHRESHOLD;
     }
     else{
-        return EMPTYTHRESHOLD;
+        //return EMPTYTHRESHOLD;
+        return REDTHRESHOLD;
     }
 }
