@@ -20,7 +20,7 @@ SceneControl::~SceneControl(){}
 int8_t SceneControl::init(){
     
     now_scenario = 0;
-    scene_num = 10;
+    scene_num = 0;
     now_scene = 1;
     correction_flag = 0;
     SceneInfo& sceneInfo    = SceneInfo::getInstance();
@@ -58,6 +58,7 @@ int8_t SceneControl::run(){
         }
         if(now_scenario == 4){
             //ガレージのシーン数取得
+			garage_card=paternjudge.getGarage();
             if(paternjudge.getGarage() == 1){
                 scene_num = sceneInfo.get(GARAGE,pattern1);
             }else{
@@ -93,7 +94,7 @@ int8_t SceneControl::run(){
             break;
         case 4:
             //ガレージ
-            garage_card=paternjudge.getGarage();
+            
             if(garage_card== 1){
                 sceneData = sceneInfo.get(GARAGE,now_scene,pattern1);
             }else{
