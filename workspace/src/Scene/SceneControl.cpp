@@ -5,6 +5,7 @@
 #include "../../include/SceneInfo/SceneInfo.hpp"
 #include "../../include/Judge/Judgement.h"
 #include "../../include/Correction/Correction.h"
+#include "../../include/Steering/TailMotor.h"
 //コンストラクタ
 SceneControl::SceneControl(){
     error     = SYS_NG;
@@ -105,6 +106,14 @@ int8_t SceneControl::run(){
     //実行
     Task *task = new Task(sceneData.moveData,sceneData.correctionData);
     error = task->run();
+
+    if(tail_flg==0){
+        TailMotor &tailMotor = TailMotor::getInstance();
+    	int8 chk = tailMotor.setCounts(sceneData.moveData.tail_angle,10);
+        if(chk == SYS_OK){
+            tail_flg = 1;
+        }
+    }
     if(error != SYS_OK){
         printf("task_run_error\n");
         ext_tsk();
@@ -146,6 +155,7 @@ int8_t SceneControl::SceneSwitch(){
     if(judge_bool == 1){
         now_scene++;
         correction_flag = 0;
+        tail_flg = 0;
         printf("scene_change\n");
     }
     //パターン判定

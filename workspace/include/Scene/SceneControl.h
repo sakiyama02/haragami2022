@@ -11,6 +11,7 @@ class SceneControl{
     int8_t garage_card;
     int8_t correction_flag;
     SceneData sceneData;
+    int8_t tail_flg=0;
     public:
     //コンストラクタ
     SceneControl();

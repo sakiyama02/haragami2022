@@ -153,6 +153,7 @@ struct MoveData
 	COORDINATE coordinate;		// 目標座標
 	unsigned char direction;			// 旋回方向
 	short arm_angle;			// アーム角度
+	short tail_angle;
 	int arm_pwm;				// アーム速度
 };
 

@@ -21,6 +21,7 @@
 #include "./workspace/include/Sonic/UltraSonic.h"
 #include "./workspace/include/ColorSpace/ColorSpace.h"
 #include "./workspace/include/FileOp/FileIO.hpp"
+#include "../../include/Steering/TailMotor.h"
 
 
 #if defined(BUILD_MODULE)
@@ -104,6 +105,8 @@ void main_task(intptr_t unused)
     MOTOR_POWER stop = {0,0};
    	Steering &steering = Steering::getInstance( );
     steering.run(stop);
+    TailMotor &tail = TailMotor::getInstance( );
+    tail.setPWM(0);
    	stp_cyc(SONIC_PERIOD);
     stp_cyc(COLOR_PERIOD);
     stp_cyc(CARDATA_PERIOD);

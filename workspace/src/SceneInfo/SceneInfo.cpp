@@ -395,8 +395,12 @@ char SceneInfo::decode(vector<char>& fileData,vector<SceneData>& sceneData){
 		tmpData.paterndecisiondata.garage_decision=atoi(data_ptr);
 		
 		// ガレージ格納ポイント
-		data_ptr = strtok_r(NULL,"\n",&save_ptr1);
+		data_ptr = strtok_r(NULL,",",&save_ptr1);
 		tmpData.paterndecisiondata.garage_point=atoi(data_ptr);
+
+		// テール角度
+		data_ptr = strtok_r(NULL,"\n",&save_ptr1);
+		tmpData.moveData.tail_angle=atoi(data_ptr);
 		
 		/// ------------------------------------------------------------------
 		sceneData.push_back(tmpData);

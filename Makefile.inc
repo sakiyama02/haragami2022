@@ -42,6 +42,7 @@ APPL_CXXOBJS += \
 				UseJudgement.o\
 				Correction.o\
 				ArmMotor.o\
+				TailMotor.o\
 #
 SRCLANG := c++
 
