@@ -99,7 +99,7 @@ int8_t SceneControl::run(){
         case 4:
             //ガレージ
             
-            if(garage_card== 1){
+            if(garage_card== 1 || garage_card == 2){
                 sceneData = sceneInfo.get(GARAGE,now_scene,pattern1);
             }else{
                 sceneData = sceneInfo.get(GARAGE,now_scene,pattern2);
