@@ -18,6 +18,7 @@
 
 #include "ev3api.h"
 
+#define EV3
 
 #define SYS_OK 0    //正常終了
 #define SYS_NG -1    //異常終了
@@ -43,7 +44,7 @@
 #ifdef SPIKE
 	#define CAR_WIDTH (127.0)
 #else
-	#define CAR_WIDTH (134.22)
+	#define CAR_WIDTH (142.0)
 #endif
 
 #define DIST ((PI) * (double)CAR_WHEEL_WIDTH) / 360.0
