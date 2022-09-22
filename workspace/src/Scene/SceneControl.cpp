@@ -60,7 +60,10 @@ int8_t SceneControl::run(){
         if(now_scenario == 4){
             //ガレージのシーン数取得
 			garage_card=paternjudge.getGarage();
-            if(paternjudge.getGarage() == 1){
+            if(garage_card >= 4){
+                garage_card = 1;
+            }
+            if(paternjudge.getGarage() == 1 or paternjudge.getGarage() == 2){
                 scene_num = sceneInfo.get(GARAGE,pattern1);
             }else{
                 scene_num = sceneInfo.get(GARAGE,pattern2);
