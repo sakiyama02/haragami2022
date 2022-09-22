@@ -46,9 +46,9 @@ int8_t Curve::run(int32_t speed){
     // 自己位置、目標座標感の距離計算
     // 直線距離 = √ (x2-x)(x2-x) + (y2-y)(y2-y)
     target_distance = std::sqrt( std::pow(target_coordinate.x - current_coordinate.x, 2) + std::pow(target_coordinate.y - current_coordinate.y, 2) );
-    //if (target_distance > (radius * 2.0f)) {
-	//	return SYS_NG;
-	//}
+    if (target_distance > (radius * 2.0f)) {
+		target_distance = (radius * 2.0f);
+	}
     // 半径 半径 目標座標までの距離　から角度計算
     //        b*b + c*c - a*a
     // cosA = ----------------
@@ -56,7 +56,7 @@ int8_t Curve::run(int32_t speed){
 
     theta = ((std::pow(radius, 2) * 2) - std::pow(target_distance, 2)) / (std::pow(radius, 2) * 2);
 
-    angle = 180 / PI * (acos(theta));
+    angle = (double)180 / PI * (acos(theta));
 
     //printf("%f,%f\n",current_coordinate.x,current_coordinate.y);
 
