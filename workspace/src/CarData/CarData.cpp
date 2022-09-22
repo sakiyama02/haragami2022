@@ -14,8 +14,8 @@ CarData::CarData( )
 	car_angle = 0.0f;
 
 	/* Lコース初期位置座標 */
-	position.x = 2517.0f;//3552 * 0.3527 * 2;
-	position.y = 215.0f;//93 * 0.3527 * 2;
+	position.x = 2494.0f;//3552 * 0.3527 * 2;
+	position.y = 242.0f;//93 * 0.3527 * 2;
 }
 
 CarData::~CarData( ) {}
